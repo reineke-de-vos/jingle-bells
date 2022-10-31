@@ -1,0 +1,18 @@
+
+Version 1.0
+  - one thread (no command input until program works)
+  - one function per field
+  - field compiler (!)
+
+Version 1.1
+  - several fubctions per field
+  - more ttl possible usages
+
+Version 1.2
+  - arrays (dynamic)
+
+Version 1.3
+  - independant threads for input and calculations (+ listen field)
+
+Version 2.0
+  - multi-threaaind
