@@ -2,3 +2,4 @@
 [ ] 0001    float (java double) jingles
 [ ] 0002    process sources from command line
 [ ] 0003    choose ringer from command line
+[ ] 0004    error processing (both parsing and execution)
