@@ -79,7 +79,7 @@ float sum = 0:
     (delta) /delta > epsilon/ -> sum + delta;
 ```
 
-Running this code with command ```bell i``` will calculate sum 1 + (1 / 2<sup>2</sup>) + (1 / 3<sup>2</sup>) + ... (1 / i<sup>2</sup>) until (1 / i<sup>2</sup>) in greater than *epsilon*. There are will not be division by zero because calculators are calling in order they are appeared in code, i.e. *i* will be recalculated first, then delta, then sum, then i again.
+Running this code with command ```bell i``` will calculate sum 1 + (1 / 2<sup>2</sup>) + (1 / 3<sup>2</sup>) + ... (1 / i<sup>2</sup>) till (1 / i<sup>2</sup>) is greater than *epsilon*. There are will not be division by zero because calculators are calling in order they are appeared in code, i.e. *i* will be recalculated first, then delta, then sum, then i again.
 
 ### Commands
 
