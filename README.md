@@ -73,7 +73,7 @@ int i = 0;
 float epsilon = 0.0001:
 
 float delta:
-    (i) -> 1 / i * i;
+    (i) -> 1 / (i * i);
 
 float sum = 0:
     (delta) /delta > epsilon/ -> sum + delta;
