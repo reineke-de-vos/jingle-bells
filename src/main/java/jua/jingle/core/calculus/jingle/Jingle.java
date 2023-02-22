@@ -4,7 +4,6 @@ import java.lang.invoke.LambdaMetafactory;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import jua.jingle.core.calculus.calculator.Calculator;
@@ -19,8 +18,7 @@ public abstract class Jingle {
     protected String format;
 
     protected Map<String, Jingle> all;
-    protected Set<String> sources = new HashSet<>();
-    protected Map<String, Calculator> calculators = new HashMap<>(); // TODO think to handle calculators outside too
+    protected Map<String, Calculator> calculators = new HashMap<>(); // TODO think to handle calculators outside (if need it)
 
     // TODO change init to constructor (condifer performance)
     public void init(
@@ -48,7 +46,7 @@ public abstract class Jingle {
     abstract public String format();
 
     public Set<String> getSources() {
-        return sources;
+        return calculators.keySet();
     }
 
     protected void echoError(String error) {
@@ -71,7 +69,6 @@ public abstract class Jingle {
                         calculateMethod,
                         lookup.findVirtual(thisClass, calculatorName, calculateMethod), calculateMethod).getTarget().invoke(this);
                 for (String name : dependencies.get(calculatorName)) {
-                    sources.add(name);
                     calculators.put(name, calculator);
                 }
             }

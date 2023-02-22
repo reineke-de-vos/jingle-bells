@@ -2,6 +2,7 @@ package jua.jingle.core.compiler;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class SourceProcessor {
 
     private static class JinglesTreeProcessor extends JingleBellsBaseVisitor<Object> {
 
-        private Map<String, JingleDescriptor> descriptors;
+        private Map<String, JingleDescriptor> descriptors = new HashMap<>();
 
         @Override
         public Map<String, JingleDescriptor> visitProgram(JingleBellsParser.ProgramContext ctx) {
