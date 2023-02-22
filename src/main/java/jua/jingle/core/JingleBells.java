@@ -2,7 +2,7 @@ package jua.jingle.core;
 
 import java.util.Map;
 import jua.jingle.core.calculus.jingle.Jingle;
-import jua.jingle.core.compiler.SourceProcessor;
+import jua.jingle.core.compiler.JinglesCompiler;
 import jua.jingle.core.server.BellTower;
 import jua.jingle.core.server.RingerLoop;
 import jua.ringer.console.StdIoRinger;
@@ -15,8 +15,8 @@ public class JingleBells {
         // ...
 
         // TODO init jingles from JB file set by command line params
-        SourceProcessor processor = new SourceProcessor();
-        Map<String, Jingle> jingles = processor.processSource("examples/fibonacci.jb");
+        JinglesCompiler compiler = new JinglesCompiler();
+        Map<String, Jingle> jingles = compiler.compile("examples/fibonacci.jb");
         BellTower bellTower = new BellTower(jingles);
 
         // TODO init ringer from command line parameters
