@@ -69,6 +69,7 @@ public class JingleGenerator {
         this.base = Types.baseClass(descriptor.type);
         this.className = base.getSimpleName() + NAME_DELIMITER + descriptor.name;
         this.classw = new ClassWriter(COMPUTE_FRAMES | COMPUTE_MAXS);
+        this.loader = new JingleClassLoader();
     }
 
     private Jingle generate() {
@@ -77,8 +78,8 @@ public class JingleGenerator {
                 // DEBUG : TODO think how to debug class generation
                 loader.save(className, classw.toByteArray());
             return (Jingle) loader.loadClass(classw.toByteArray()).getConstructor().newInstance();
-        } catch (Exception ex) {
-            throw new RuntimeException("Cannot load class " + descriptor.name);
+        } catch (Exception e) {
+            throw new RuntimeException("Cannot load class " + descriptor.name, e);
         }
     }
 

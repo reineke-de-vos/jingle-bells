@@ -4,18 +4,24 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JingleClassLoader {
 
     private ClassLoader loader;
     private Method definer;
 
-    public JingleClassLoader() throws NoSuchMethodException {
+    public JingleClassLoader() {
         ClassLoader.class.getModule().addOpens(ClassLoader.class.getPackageName(), this.getClass().getModule());
         loader = ClassLoader.getSystemClassLoader();
-        definer = ClassLoader.class.getDeclaredMethod(
-                "defineClass",
-                new Class[] { String.class, byte[].class, int.class, int.class });
+        try {
+            definer = ClassLoader.class.getDeclaredMethod(
+                    "defineClass",
+                    new Class[] { String.class, byte[].class, int.class, int.class });
+        } catch (Exception e) {
+            System.out.println("Cannot create loader: not method defineClass");
+        }
         definer.setAccessible(true); // TODO consider set to false after all classes are instantiated
     }
 

@@ -84,16 +84,12 @@ public class SourceProcessor {
 
         @Override
         public FormulaTree.Value visitIntValue(JingleBellsParser.IntValueContext ctx) {
-            return new FormulaTree.Value(INT, ctx.INTEGER().getText(), isNegative(ctx.minus.getText()));
+            return new FormulaTree.Value(INT, ctx.INTEGER().getText(), ctx.minus != null);
         }
 
         @Override
         public FormulaTree.Value visitFloatValue(JingleBellsParser.FloatValueContext ctx) {
-            return new FormulaTree.Value(FLOAT, ctx.FLOAT().getText(), isNegative(ctx.minus.getText()));
-        }
-
-        private boolean isNegative (String minus) {
-            return "-".equals(minus);
+            return new FormulaTree.Value(FLOAT, ctx.FLOAT().getText(), ctx.minus != null);
         }
 
         private CalculatorDescriptor processCalculator(
