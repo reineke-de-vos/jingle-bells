@@ -6,8 +6,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jua.jingle.core.calculus.jingle.Jingle;
 import jua.jingle.core.calculus.jingle.ValueException;
 import jua.jingle.plugin.ringer.RingerPlugin;

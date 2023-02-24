@@ -9,13 +9,13 @@ public class JingleFloat extends Jingle {
         try {
             this.value = Double.parseDouble(value);
         } catch (NumberFormatException e) {
-            throw new ValueException("Illegal integer value: " + value);
+            throw new ValueException("Illegal float value: " + value);
         }
     }
 
     @Override
     public String format() {
-        return String.format(format, value);
+        return String.format("%f", value);
     }
 
 }

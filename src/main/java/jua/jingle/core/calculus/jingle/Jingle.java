@@ -18,17 +18,18 @@ public abstract class Jingle {
     protected String format;
 
     protected Map<String, Jingle> all;
-    protected Set<String> sources;
-    protected Map<String, Calculator> calculators = new HashMap<>(); // TODO think to handle calculators outside too
+    protected Map<String, Calculator> calculators = new HashMap<>(); // TODO think to handle calculators outside (if need it)
 
     // TODO change init to constructor (condifer performance)
-    public void init(Map<String, Jingle> jingles, Set<String> sources, Map<Long, Set<String>> calcDeps, String format) {
+    public void init(
+            Map<String, Jingle> jingles,
+            Map<String, Set<String>> dependencies,
+            String format) {
         this.all = jingles;
-        this.sources = sources;
         if (format != null) {
             this.format = format;
         }
-        initCalculators(calcDeps);
+        initCalculators(dependencies);
     }
 
     /**
@@ -45,7 +46,7 @@ public abstract class Jingle {
     abstract public String format();
 
     public Set<String> getSources() {
-        return sources;
+        return calculators.keySet();
     }
 
     protected void echoError(String error) {
@@ -53,23 +54,21 @@ public abstract class Jingle {
         System.out.println();
     }
 
-    protected void initCalculators(Map<Long, Set<String>> calcDeps) {
+    protected void initCalculators(Map<String, Set<String>> dependencies) {
         MethodHandles.Lookup lookup = MethodHandles.lookup();
         Class<?> thisClass = this.getClass();
         MethodType calculateMethod = MethodType.methodType(void.class);
         MethodType invokedType = MethodType.methodType(Calculator.class, thisClass);
 
         try {
-            for (Long count : calcDeps.keySet()) {
-                String calculatorName = "calculator_" + count;
-                
+            for (String calculatorName : dependencies.keySet()) {                
                 Calculator calculator = (Calculator) LambdaMetafactory.metafactory(
                         lookup,
                         "calculate",
                         invokedType,
                         calculateMethod,
                         lookup.findVirtual(thisClass, calculatorName, calculateMethod), calculateMethod).getTarget().invoke(this);
-                for (String name : calcDeps.get(count)) {
+                for (String name : dependencies.get(calculatorName)) {
                     calculators.put(name, calculator);
                 }
             }
