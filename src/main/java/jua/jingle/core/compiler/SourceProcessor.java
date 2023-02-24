@@ -116,7 +116,7 @@ public class SourceProcessor {
         // Expressions
         //
         @Override
-        public TheTree visitExpOpAddSub(JingleBellsParser.ExpOpAddSubContext ctx) {
+        public FormulaTree visitExpOpAddSub(JingleBellsParser.ExpOpAddSubContext ctx) {
             FormulaTree left = (FormulaTree) visit(ctx.left);
             FormulaTree right = (FormulaTree) visit(ctx.right);
             FormulaTree.Operation operation = "+".equals(ctx.operation.getText()) ? ADD : SUB;
@@ -137,6 +137,11 @@ public class SourceProcessor {
             return new FormulaTree.Value(INT, ctx.INTEGER().getText());
         }
 
+        @Override
+        public FormulaTree visitExpFloatValue(JingleBellsParser.ExpFloatValueContext ctx) {
+            return new FormulaTree.Value(FLOAT, ctx.FLOAT().getText());
+        }
+
         /**
          * This method is the place for NEG chain reduction
          *
@@ -144,7 +149,7 @@ public class SourceProcessor {
          * @return newly created node
          */
         @Override
-        public TheTree visitExpOpNeg(JingleBellsParser.ExpOpNegContext ctx) {
+        public FormulaTree visitExpOpNeg(JingleBellsParser.ExpOpNegContext ctx) {
             FormulaTree operand = (FormulaTree) visit(ctx.expression());
             if (operand.operation == VALUE) {
                 ((FormulaTree.Value) operand).invert();
@@ -167,7 +172,7 @@ public class SourceProcessor {
         }
 
         @Override
-        public TheTree visitExpOpMulDiv(JingleBellsParser.ExpOpMulDivContext ctx) {
+        public FormulaTree visitExpOpMulDiv(JingleBellsParser.ExpOpMulDivContext ctx) {
             FormulaTree left = (FormulaTree) visit(ctx.left);
             FormulaTree right = (FormulaTree) visit(ctx.right);
             String op = ctx.operation.getText();
@@ -182,6 +187,11 @@ public class SourceProcessor {
                 right.desiredType = INT;
             }
             return new FormulaTree.BinaryOperation(operation, type, left, right);
+        }
+
+	@Override
+        public FormulaTree visitExpParenth(JingleBellsParser.ExpParenthContext ctx) {
+            return (FormulaTree) visit(ctx.expression());
         }
 
     }

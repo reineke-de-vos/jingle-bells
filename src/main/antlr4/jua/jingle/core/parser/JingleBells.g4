@@ -17,7 +17,7 @@ expression
     | NAME                                                      # expJingleName
     | INTEGER                                                   # expIntValue
     | FLOAT                                                     # expFloatValue
-    | '(' expression ')'                                        # expBraces
+    | '(' expression ')'                                        # expParenth
 ;
 
 intValue : minus='-'? INTEGER ;

@@ -16,7 +16,7 @@ public class JingleBells {
 
         // TODO init jingles from JB file set by command line params
         JinglesCompiler compiler = new JinglesCompiler();
-        Map<String, Jingle> jingles = compiler.compile("examples/fibonacci.jb");
+        Map<String, Jingle> jingles = compiler.compile("examples/series/leibniz_pi.jb");
         BellTower bellTower = new BellTower(jingles);
 
         // TODO init ringer from command line parameters

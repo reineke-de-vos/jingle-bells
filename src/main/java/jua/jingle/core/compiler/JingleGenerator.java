@@ -1,10 +1,6 @@
 package jua.jingle.core.compiler;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jua.jingle.core.compiler.tree.JingleDescriptor;
 import jua.jingle.core.calculus.jingle.Jingle;
 import jua.jingle.core.calculus.jingle.JingleFloat;
@@ -172,7 +168,7 @@ public class JingleGenerator {
                 calcv.visitFieldInsn(PUTFIELD, Type.getInternalName(base), "value", Type.LONG_TYPE.getDescriptor());
                 break;
             case FLOAT:
-                calcv.visitFieldInsn(PUTFIELD, Type.getInternalName(base), "value", Type.FLOAT_TYPE.getDescriptor());
+                calcv.visitFieldInsn(PUTFIELD, Type.getInternalName(base), "value", Type.DOUBLE_TYPE.getDescriptor());
                 break;
         }
         calcv.visitInsn(RETURN);
@@ -254,7 +250,7 @@ public class JingleGenerator {
         }
     }
 
-    private void retrieveNumberField(String name, boolean thisJingle, Class<? extends Jingle> base, Type type, MethodVisitor calcv) {
+    private void retrieveNumberField(String name, boolean thisJingle, Class<? extends Jingle> jingleBase, Type type, MethodVisitor calcv) {
         calcv.visitVarInsn(ALOAD, 0);
         if (thisJingle) {
             calcv.visitFieldInsn(GETFIELD, Type.getInternalName(base), "value", type.getDescriptor());
@@ -270,10 +266,10 @@ public class JingleGenerator {
                     "get",
                     Type.getMethodDescriptor(Type.getType(Object.class), Type.getType(Object.class)),
                     true);
-            // 16: checkcast     #19                 // class Base
-            calcv.visitTypeInsn(CHECKCAST, Type.getInternalName(base));
-            // 19: getfield      #20                 // Field Base.value:J
-            calcv.visitFieldInsn(GETFIELD, Type.getInternalName(base), "value", type.getDescriptor());
+            // 16: checkcast     #19                 // class jingleBase
+            calcv.visitTypeInsn(CHECKCAST, Type.getInternalName(jingleBase));
+            // 19: getfield      #20                 // Field jingleBase.value:J
+            calcv.visitFieldInsn(GETFIELD, Type.getInternalName(jingleBase), "value", type.getDescriptor());
         }
     }
 

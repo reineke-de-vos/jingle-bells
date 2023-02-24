@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class JingleClassLoader {
 

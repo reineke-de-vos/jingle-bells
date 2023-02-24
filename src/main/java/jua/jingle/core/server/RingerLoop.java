@@ -1,8 +1,5 @@
 package jua.jingle.core.server;
 
-import java.util.Map;
-import java.util.Objects;
-import jua.jingle.core.calculus.jingle.Jingle;
 import jua.jingle.core.server.command.CommandLineIterator;
 import jua.jingle.plugin.ringer.RingerPlugin;
 
